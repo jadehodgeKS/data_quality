@@ -1,2 +1,2 @@
-# arrived_date_ts
-Code for creating a time series graph of arrived_date for data quality purposes
+# data_quality
+R scripts for evaluating data quality.
