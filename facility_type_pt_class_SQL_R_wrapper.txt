@@ -1,0 +1,33 @@
+ Pull Facility Type and Patient Class Info
+
+# Libraries and Connection
+library(tidyverse)
+library(odbc)
+datamart <- dbConnect(odbc::odbc(), dsn = 'BioSense_Platform')
+
+
+# All Possible Fields
+
+col.names <- as.data.frame(dbListFields(datamart, "ks_pr_processed"))
+
+
+# Check Facility Type and Patient Class
+
+facility_type_pt_class <-  dbGetQuery(datamart,
+  "SELECT message_id, feed_name, arrived_date_time, admit_date_time, trigger_event, 
+          facility_type_code, facility_type_description, c_factype_patient_class, 
+          patient_class_code, c_patient_class, c_mft_patient_class,
+          c_visit_date_time, c_chief_complaint
+   FROM ks_pr_processed
+   WHERE c_biosense_facility_id = 3838 and arrived_date_time between '2022-07-01' and '2022-07-10'")
+
+# Helpful functions
+
+n_distinct(facility_type_pt_class$c_biosense_id)
+
+null_field <- facility_type_pt_class[is.na(facility_type_pt_class$admit_date_time),]
+
+trigger <- facility_type_pt_class[facility_type_pt_class$trigger_event == "A03",]
+
+count(facility_type_pt_class, patient_class_code == "E") 
+
