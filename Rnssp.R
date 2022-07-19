@@ -24,7 +24,7 @@ glimpse(api_data)
 
 # Save data as excel spreadsheet
 
-write.xlsx(api_data, file = "ascension_manhattan_20220619.xlsx", sheetName = "data", 
+write.xlsx(api_data, file = "api_data.xlsx", sheetName = "data", 
            col.names = TRUE, row.names = TRUE, append = FALSE)
 
 
